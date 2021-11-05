@@ -205,8 +205,18 @@ public class Usa_Vehiculo extends javax.swing.JFrame {
         jLabel12.setText("Celular:");
 
         jButtonLimpiar.setText("Limpiar");
+        jButtonLimpiar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                LimpiarActionPerformed(evt);
+            }
+        });
 
         jButtonGuardar.setText("Guardar");
+        jButtonGuardar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                GuardarVehiculoActionPerformed(evt);
+            }
+        });
 
         javax.swing.GroupLayout jPanel2Layout = new javax.swing.GroupLayout(jPanel2);
         jPanel2.setLayout(jPanel2Layout);
@@ -469,6 +479,30 @@ public class Usa_Vehiculo extends javax.swing.JFrame {
         
         jTextArea2.setText(res);
     }//GEN-LAST:event_ListarTodosActionPerformed
+
+    private void LimpiarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_LimpiarActionPerformed
+        jTextCedulaReg.setText("");
+        jTextCelularReg.setText("");
+        jTextFechaReg.setText("");
+        jTextModeloReg.setText("");
+        jTextNombreReg.setText("");
+        jTextPlacaReg.setText("");
+        jComboBoxAseg.setSelectedIndex(0);
+        jRadioButtonAf.setSelected(false);
+        jRadioButtonPar.setSelected(false);
+    }//GEN-LAST:event_LimpiarActionPerformed
+
+    private void GuardarVehiculoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_GuardarVehiculoActionPerformed
+//        jTextCedulaReg.setText("");
+//        jTextCelularReg.setText("");
+//        jTextFechaReg.setText("");
+//        jTextModeloReg.setText("");
+//        jTextNombreReg.setText("");
+//        jTextPlacaReg.setText("");
+//        jComboBoxAseg.setSelectedIndex(0);
+//        jRadioButtonAf.setSelected(false);
+//        jRadioButtonPar.setSelected(false);
+    }//GEN-LAST:event_GuardarVehiculoActionPerformed
 
     /**
      * @param args the command line arguments
