@@ -13,23 +13,23 @@ import java.util.HashMap;
  */
 public class Vehiculo {
     
-    protected HashMap<LocalDate, Revision> susRevisiones;
+    protected Queue<Revision> susRevisiones;
     protected String placa;
     protected int modelo;
     protected Propietario suPropietario;
 
-    public Vehiculo(HashMap<LocalDate, Revision> susRevisiones, String placa, int modelo, Propietario suPropietario) {
+    public Vehiculo(Queue<Revision> susRevisiones, String placa, int modelo, Propietario suPropietario) {
         this.susRevisiones = susRevisiones;
         this.placa = placa;
         this.modelo = modelo;
         this.suPropietario = suPropietario;
     }
 
-    public HashMap<LocalDate, Revision> getSusRevisiones() {
+    public Queue<Revision> getSusRevisiones() {
         return susRevisiones;
     }
 
-    public void setSusRevisiones(HashMap<LocalDate, Revision> susRevisiones) {
+    public void setSusRevisiones(Queue<Revision> susRevisiones) {
         this.susRevisiones = susRevisiones;
     }
 
@@ -55,6 +55,13 @@ public class Vehiculo {
 
     public void setSuPropietario(Propietario suPropietario) {
         this.suPropietario = suPropietario;
+    }
+    
+    public double calcularValorAPagar() {
+        
+        double res = susRevisiones.peek().getValorBase();
+        
+        return res;
     }
 
     @Override

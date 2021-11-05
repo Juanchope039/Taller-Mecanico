@@ -15,7 +15,7 @@ public class Vehiculo_particular extends Vehiculo{
     
     private String id_aseguradora;
 
-    public Vehiculo_particular(HashMap<LocalDate, Revision> susRevisiones, String placa, int modelo, Propietario suPropietario, String id_aseguradora) {
+    public Vehiculo_particular(Queue<Revision> susRevisiones, String placa, int modelo, Propietario suPropietario, String id_aseguradora) {
         super(susRevisiones, placa, modelo, suPropietario);
         this.id_aseguradora = id_aseguradora;
     }

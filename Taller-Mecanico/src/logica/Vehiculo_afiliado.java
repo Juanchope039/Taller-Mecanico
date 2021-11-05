@@ -16,7 +16,7 @@ public class Vehiculo_afiliado extends Vehiculo{
     
     private LocalDate fecha_Afiliacion;
 
-    public Vehiculo_afiliado(HashMap<LocalDate, Revision> susRevisiones, String placa, int modelo, Propietario suPropietario,LocalDate fecha_afiliacion) {
+    public Vehiculo_afiliado(Queue<Revision> susRevisiones, String placa, int modelo, Propietario suPropietario,LocalDate fecha_afiliacion) {
         super(susRevisiones, placa, modelo, suPropietario);
         this.fecha_Afiliacion = fecha_afiliacion;
     }
@@ -34,6 +34,17 @@ public class Vehiculo_afiliado extends Vehiculo{
         Long numeroAnnos = ChronoUnit.YEARS.between(LocalDate.now(), fecha_Afiliacion);
         return 3000 * numeroAnnos;
     }
+
+    @Override
+    public double calcularValorAPagar() {
+        
+        LocalDate hoy = LocalDate.now();
+        long difDias = ChronoUnit.YEARS.between(hoy, fecha_Afiliacion);
+        
+        return super.calcularValorAPagar()- 3000*difDias; //To change body of generated methods, choose Tools | Templates.
+    }
+    
+    
 
     @Override
     public String toString() {
