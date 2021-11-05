@@ -6,6 +6,7 @@ package Vista;
 
 import java.time.LocalDate;
 import java.util.HashMap;
+import javax.swing.JOptionPane;
 import logica.Propietario;
 import logica.Revision;
 import logica.Vehiculo;
@@ -38,7 +39,6 @@ public class Usa_Vehiculo extends javax.swing.JFrame {
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
-        GrupoRadioButton = new javax.swing.ButtonGroup();
         jPanel1 = new javax.swing.JPanel();
         jLabel2 = new javax.swing.JLabel();
         jTabbedPane1 = new javax.swing.JTabbedPane();
@@ -100,12 +100,27 @@ public class Usa_Vehiculo extends javax.swing.JFrame {
         jScrollPane2.setViewportView(jTextArea2);
 
         jButtonListarTodos.setText("Listar todos");
+        jButtonListarTodos.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                ListarTodosActionPerformed(evt);
+            }
+        });
 
         jButtonListarVehiculo.setText("Listar vehiculo");
+        jButtonListarVehiculo.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                ListarVehiculoActionPerformed(evt);
+            }
+        });
 
         jLabel18.setText("Placa de vehiculo:");
 
         jButtonEliminar.setText("Eliminar vehiculo");
+        jButtonEliminar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                EliminarVehiculoActionPerformed(evt);
+            }
+        });
 
         javax.swing.GroupLayout jPanel3Layout = new javax.swing.GroupLayout(jPanel3);
         jPanel3.setLayout(jPanel3Layout);
@@ -157,13 +172,7 @@ public class Usa_Vehiculo extends javax.swing.JFrame {
         jTextFechaReg.setToolTipText("aaaa/mm/dd");
         jTextFechaReg.setEnabled(false);
         jTextFechaReg.setName(""); // NOI18N
-        jTextFechaReg.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jTextFechaRegActionPerformed(evt);
-            }
-        });
 
-        GrupoRadioButton.add(jRadioButtonAf);
         jRadioButtonAf.setText("Afiliado");
         jRadioButtonAf.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -171,7 +180,6 @@ public class Usa_Vehiculo extends javax.swing.JFrame {
             }
         });
 
-        GrupoRadioButton.add(jRadioButtonPar);
         jRadioButtonPar.setText("Particular");
         jRadioButtonPar.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -201,11 +209,16 @@ public class Usa_Vehiculo extends javax.swing.JFrame {
         jLabel12.setText("Celular:");
 
         jButtonLimpiar.setText("Limpiar");
+        jButtonLimpiar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                LimpiarActionPerformed(evt);
+            }
+        });
 
         jButtonGuardar.setText("Guardar");
         jButtonGuardar.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jButtonGuardarActionPerformed(evt);
+                GuardarVehiculoActionPerformed(evt);
             }
         });
 
@@ -292,11 +305,12 @@ public class Usa_Vehiculo extends javax.swing.JFrame {
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(jLabel9)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(jRadioButtonPar)
-                    .addComponent(jComboBoxAseg, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jButtonLimpiar)
-                    .addComponent(jButtonGuardar))
+                    .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                        .addComponent(jComboBoxAseg, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addComponent(jButtonLimpiar)
+                        .addComponent(jButtonGuardar)))
                 .addContainerGap())
         );
 
@@ -440,11 +454,53 @@ public class Usa_Vehiculo extends javax.swing.JFrame {
         // TODO add your handling code here:
     }//GEN-LAST:event_jRadioButtonParActionPerformed
 
-    private void jButtonGuardarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonGuardarActionPerformed
+    private void EliminarVehiculoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_EliminarVehiculoActionPerformed
+        String placa = jTextPlacaInic.getText();
+
+        if (losVehiculos.remove(placa) != null)
+            JOptionPane.showMessageDialog(null, "Vehiculo eliminado Sactisfactoriamente");
+        else
+            JOptionPane.showMessageDialog(null, "Vehiculo no existe");
         
-        //Datos vehiculo
+    }//GEN-LAST:event_EliminarVehiculoActionPerformed
+
+    private void ListarVehiculoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_ListarVehiculoActionPerformed
+        String placa = jTextPlacaInic.getText();
+        Vehiculo res;
+        
+        if ((res = losVehiculos.get(placa)) != null)
+            jTextArea2.setText("Listar Vehiculo:\n" +res.toString());
+        else
+            JOptionPane.showMessageDialog(null, "Vehiculo no existe");
+    }//GEN-LAST:event_ListarVehiculoActionPerformed
+
+    private void ListarTodosActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_ListarTodosActionPerformed
+        String res = "Lista de todos los Vehiculos";
+        
+        int i = 0;
+        for (Vehiculo vehiculo : losVehiculos.values())
+            res += (i+1) + ". " + vehiculo.toString();
+        
+        jTextArea2.setText(res);
+    }//GEN-LAST:event_ListarTodosActionPerformed
+
+    private void LimpiarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_LimpiarActionPerformed
+        jTextCedulaReg.setText("");
+        jTextCelularReg.setText("");
+        jTextFechaReg.setText("");
+        jTextModeloReg.setText("");
+        jTextNombreReg.setText("");
+        jTextPlacaReg.setText("");
+        jComboBoxAseg.setSelectedIndex(0);
+        jRadioButtonAf.setSelected(false);
+        jRadioButtonPar.setSelected(false);
+    }//GEN-LAST:event_LimpiarActionPerformed
+
+    private void GuardarVehiculoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_GuardarVehiculoActionPerformed
+//        //Datos vehiculo
         String laPlaca = jTextPlacaReg.getText();
         int elModelo= Integer.parseInt(jTextModeloReg.getText());
+        //Datos propietario
         long laCedula = Long.parseLong(jTextCedulaReg.getText());
         long elCelular= Long.parseLong(jTextCelularReg.getText());
         String elNombre = jTextNombreReg.getText();
@@ -462,11 +518,7 @@ public class Usa_Vehiculo extends javax.swing.JFrame {
             Vehiculo_particular objVP= new Vehiculo_particular(laPlaca, elModelo, objP, laAseguradora);
             losVehiculos.put(laPlaca, objVP);
         }
-    }//GEN-LAST:event_jButtonGuardarActionPerformed
-
-    private void jTextFechaRegActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jTextFechaRegActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_jTextFechaRegActionPerformed
+    }//GEN-LAST:event_GuardarVehiculoActionPerformed
 
     /**
      * @param args the command line arguments
@@ -502,15 +554,28 @@ public class Usa_Vehiculo extends javax.swing.JFrame {
             }
         });
     }
-   
     
-    public static String ListarVehiculosAtendidos(HashMap<String, Vehiculo> info){
+    public static String ListarVehiculosAtendidos(HashMap<String, Revision> info1, HashMap<String, Vehiculo> info2){
         String res = "*Lista de los Vehiculos Atendidos\n";
+        
+        for (String revision : info1.keySet()) {
+            /**
+             * Key list
+             * fecha/(,)/Placa
+             * 2020-10-02 , CPI-624,Juan
+             * 2020-10-02 , APX-965,Andres
+             * 2020-10-02 , UYT-852,Puche
+             */
+            String placa = revision.split(",")[1];
+            
+            //Hay que formatear la infomación de las filas
+            res += info2.get(placa).toString() + "\n";
+        }
+        
         return res;
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.ButtonGroup GrupoRadioButton;
     private javax.swing.JButton jButtonEliminar;
     private javax.swing.JButton jButtonGuardar;
     private javax.swing.JButton jButtonInsertarRev;
