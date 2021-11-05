@@ -16,8 +16,8 @@ public class Vehiculo_afiliado extends Vehiculo{
     
     private LocalDate fecha_Afiliacion;
 
-    public Vehiculo_afiliado(Queue<Revision> susRevisiones, String placa, int modelo, Propietario suPropietario,LocalDate fecha_afiliacion) {
-        super(susRevisiones, placa, modelo, suPropietario);
+    public Vehiculo_afiliado(String placa, int modelo, Propietario suPropietario,LocalDate fecha_afiliacion) {
+        super(placa, modelo, suPropietario);
         this.fecha_Afiliacion = fecha_afiliacion;
     }
 

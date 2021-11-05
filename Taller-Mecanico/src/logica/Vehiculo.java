@@ -18,8 +18,8 @@ public class Vehiculo {
     protected int modelo;
     protected Propietario suPropietario;
 
-    public Vehiculo(Queue<Revision> susRevisiones, String placa, int modelo, Propietario suPropietario) {
-        this.susRevisiones = susRevisiones;
+    public Vehiculo(String placa, int modelo, Propietario suPropietario) {
+        this.susRevisiones = new Queue<>();
         this.placa = placa;
         this.modelo = modelo;
         this.suPropietario = suPropietario;
