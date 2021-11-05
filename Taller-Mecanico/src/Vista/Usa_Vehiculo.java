@@ -5,6 +5,7 @@
 package Vista;
 
 import java.util.HashMap;
+import javax.swing.JOptionPane;
 import logica.Revision;
 import logica.Vehiculo;
 
@@ -94,12 +95,27 @@ public class Usa_Vehiculo extends javax.swing.JFrame {
         jScrollPane2.setViewportView(jTextArea2);
 
         jButton5.setText("Listar todos");
+        jButton5.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                ListarTodosActionPerformed(evt);
+            }
+        });
 
         jButton6.setText("Listar vehiculo");
+        jButton6.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                ListarVehiculoActionPerformed(evt);
+            }
+        });
 
         jLabel18.setText("Placa de vehiculo:");
 
         jButton7.setText("Eliminar vehiculo");
+        jButton7.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                EliminarVehiculoActionPerformed(evt);
+            }
+        });
 
         javax.swing.GroupLayout jPanel3Layout = new javax.swing.GroupLayout(jPanel3);
         jPanel3.setLayout(jPanel3Layout);
@@ -274,11 +290,12 @@ public class Usa_Vehiculo extends javax.swing.JFrame {
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(jLabel9)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(jRadioButton3)
-                    .addComponent(jComboBox1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jButton1)
-                    .addComponent(jButton2))
+                    .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                        .addComponent(jComboBox1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addComponent(jButton1)
+                        .addComponent(jButton2)))
                 .addContainerGap())
         );
 
@@ -421,6 +438,36 @@ public class Usa_Vehiculo extends javax.swing.JFrame {
     private void jRadioButton3ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jRadioButton3ActionPerformed
         // TODO add your handling code here:
     }//GEN-LAST:event_jRadioButton3ActionPerformed
+
+    private void EliminarVehiculoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_EliminarVehiculoActionPerformed
+        String placa = jTextField10.getText();
+
+        if (losVehiculos.remove(placa) != null)
+            JOptionPane.showMessageDialog(null, "Vehiculo eliminado Sactisfactoriamente");
+        else
+            JOptionPane.showMessageDialog(null, "Vehiculo no existe");
+        
+    }//GEN-LAST:event_EliminarVehiculoActionPerformed
+
+    private void ListarVehiculoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_ListarVehiculoActionPerformed
+        String placa = jTextField10.getText();
+        Vehiculo res;
+        
+        if ((res = losVehiculos.get(placa)) != null)
+            jTextArea2.setText("Listar Vehiculo:\n" +res.toString());
+        else
+            JOptionPane.showMessageDialog(null, "Vehiculo no existe");
+    }//GEN-LAST:event_ListarVehiculoActionPerformed
+
+    private void ListarTodosActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_ListarTodosActionPerformed
+        String res = "Lista de todos los Vehiculos";
+        
+        int i = 0;
+        for (Vehiculo vehiculo : losVehiculos.values())
+            res += (i+1) + ". " + vehiculo.toString();
+        
+        jTextArea2.setText(res);
+    }//GEN-LAST:event_ListarTodosActionPerformed
 
     /**
      * @param args the command line arguments
