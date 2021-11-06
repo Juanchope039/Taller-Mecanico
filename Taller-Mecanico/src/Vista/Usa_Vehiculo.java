@@ -5,13 +5,12 @@
 package Vista;
 
 import java.time.LocalDate;
-import java.time.format.DateTimeFormatter;
 import java.util.HashMap;
+import java.util.TreeMap;
 import javax.swing.JOptionPane;
 import logica.Propietario;
 import logica.Revision;
 import logica.Vehiculo;
-import logica.Queue;
 import logica.Vehiculo_afiliado;
 import logica.Vehiculo_particular;
 
@@ -24,7 +23,7 @@ public class Usa_Vehiculo extends javax.swing.JFrame {
     /**
      * Creates new form Usa_Vehiculo
      */
-    private HashMap<String, Vehiculo> losVehiculos = new HashMap<>();
+    private TreeMap<String, Vehiculo> losVehiculos = new TreeMap<>();
     
     
     public Usa_Vehiculo() {
@@ -32,6 +31,13 @@ public class Usa_Vehiculo extends javax.swing.JFrame {
         jTextFechaRev.setText(LocalDate.now().toString());
     }
     
+//    public void Prueba () {
+//        
+//    }
+//    public void OrdenarAscendete () {
+//        List<String> Vehiculos = new ArrayList<>(losVehiculos.keySet());
+//        Collections.sort(Vehiculos);
+//    }
     /**
      * This method is called from within the constructor to initialize the form.
      * WARNING: Do NOT modify this code. The content of this method is always
@@ -171,8 +177,8 @@ public class Usa_Vehiculo extends javax.swing.JFrame {
 
         jLabel7.setText("Tipo:");
 
-        jTextFechaReg.setText("aaaa/mm/dd");
-        jTextFechaReg.setToolTipText("aaaa/mm/dd");
+        jTextFechaReg.setText("aaaa-mm-dd");
+        jTextFechaReg.setToolTipText("aaaa-mm-dd");
         jTextFechaReg.setEnabled(false);
         jTextFechaReg.setName(""); // NOI18N
 
@@ -542,9 +548,25 @@ public class Usa_Vehiculo extends javax.swing.JFrame {
     private void GuardarVehiculoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_GuardarVehiculoActionPerformed
 //        //Datos vehiculo
         String laPlaca = jTextPlacaReg.getText();
+        long laCedula = Long.parseLong(jTextCedulaReg.getText());
+        
+        Vehiculo vehi = losVehiculos.get(laPlaca);
+        if (vehi!= null){
+            JOptionPane.showMessageDialog(null, "Este vehiculo ya se encuentra registrado");   
+            return;
+        }
+        
+        for (Vehiculo vehiculo : losVehiculos.values()) 
+        {
+            if(vehiculo.getSuPropietario().getCedula() == laCedula) {
+                JOptionPane.showMessageDialog(null, "Este propietario ya posee un vehiculo registrado");  
+                return;
+            }
+        }
+             
         int elModelo= Integer.parseInt(jTextModeloReg.getText());
         //Datos propietario
-        long laCedula = Long.parseLong(jTextCedulaReg.getText());
+        
         long elCelular= Long.parseLong(jTextCelularReg.getText());
         String elNombre = jTextNombreReg.getText();
         
@@ -554,10 +576,12 @@ public class Usa_Vehiculo extends javax.swing.JFrame {
             LocalDate laFechaA = LocalDate.parse(jTextFechaReg.getText());
             Vehiculo_afiliado objVA = new Vehiculo_afiliado(laPlaca, elModelo, objP, laFechaA);
             losVehiculos.put(laPlaca, objVA);
+            JOptionPane.showMessageDialog(null, "Vehiculo guardo con éxito");
         }else if(jRadioButtonPar.isSelected()){
             String laAseguradora = jComboBoxAseg.getSelectedItem().toString();
             Vehiculo_particular objVP= new Vehiculo_particular(laPlaca, elModelo, objP, laAseguradora);
             losVehiculos.put(laPlaca, objVP);
+            JOptionPane.showMessageDialog(null, "Vehiculo guardo con éxito");
         }
     }//GEN-LAST:event_GuardarVehiculoActionPerformed
 

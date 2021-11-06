@@ -6,7 +6,6 @@ package logica;
 
 import java.time.LocalDate;
 import java.time.temporal.ChronoUnit;
-import java.util.HashMap;
 
 /**
  *
@@ -39,9 +38,9 @@ public class Vehiculo_afiliado extends Vehiculo{
     public double calcularValorAPagar() {
         
         LocalDate hoy = LocalDate.now();
-        long difDias = ChronoUnit.YEARS.between(hoy, fecha_Afiliacion);
+        long difAños = ChronoUnit.YEARS.between(fecha_Afiliacion, hoy);
         
-        return super.calcularValorAPagar()- 3000*difDias; //To change body of generated methods, choose Tools | Templates.
+        return super.calcularValorAPagar()-(3000*difAños); //To change body of generated methods, choose Tools | Templates.
     }
     
     

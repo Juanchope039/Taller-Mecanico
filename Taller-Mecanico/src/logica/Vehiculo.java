@@ -4,15 +4,13 @@
  */
 package logica;
 
-import java.time.LocalDate;
-import java.util.HashMap;
 import java.util.LinkedList;
 
 /**
  *
  * @author Desarollo
  */
-public class Vehiculo {
+public class Vehiculo implements Comparable<Vehiculo> {
     
     protected LinkedList<Revision> susRevisiones;
     protected String placa;
@@ -76,6 +74,11 @@ public class Vehiculo {
                     res+= "\n" + susRevisiones.get(i).toString() + calcularValorAPagar();
         }
         return res;
+    }
+
+    @Override
+    public int compareTo(Vehiculo t) {
+        return placa.compareTo(t.getPlaca()); //To change body of generated methods, choose Tools | Templates.
     }
     
     
