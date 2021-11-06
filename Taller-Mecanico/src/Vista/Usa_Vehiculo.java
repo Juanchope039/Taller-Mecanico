@@ -5,6 +5,7 @@
 package Vista;
 
 import java.time.LocalDate;
+import java.time.format.DateTimeFormatter;
 import java.util.HashMap;
 import javax.swing.JOptionPane;
 import logica.Propietario;
@@ -28,8 +29,9 @@ public class Usa_Vehiculo extends javax.swing.JFrame {
     
     public Usa_Vehiculo() {
         initComponents();
+        jTextFechaRev.setText(LocalDate.now().toString());
     }
-
+    
     /**
      * This method is called from within the constructor to initialize the form.
      * WARNING: Do NOT modify this code. The content of this method is always
@@ -39,6 +41,7 @@ public class Usa_Vehiculo extends javax.swing.JFrame {
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
+        buttonGroup = new javax.swing.ButtonGroup();
         jPanel1 = new javax.swing.JPanel();
         jLabel2 = new javax.swing.JLabel();
         jTabbedPane1 = new javax.swing.JTabbedPane();
@@ -173,6 +176,7 @@ public class Usa_Vehiculo extends javax.swing.JFrame {
         jTextFechaReg.setEnabled(false);
         jTextFechaReg.setName(""); // NOI18N
 
+        buttonGroup.add(jRadioButtonAf);
         jRadioButtonAf.setText("Afiliado");
         jRadioButtonAf.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -180,6 +184,7 @@ public class Usa_Vehiculo extends javax.swing.JFrame {
             }
         });
 
+        buttonGroup.add(jRadioButtonPar);
         jRadioButtonPar.setText("Particular");
         jRadioButtonPar.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -191,7 +196,7 @@ public class Usa_Vehiculo extends javax.swing.JFrame {
 
         jLabel9.setText("Nombre aseguradora:");
 
-        jComboBoxAseg.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Select", "MAPFRE", "SURA", "ALLIANZ", "SOLIDARIA", "LIBERTY" }));
+        jComboBoxAseg.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "MAPFRE", "SURA", "ALLIANZ", "SOLIDARIA", "LIBERTY" }));
         jComboBoxAseg.setEnabled(false);
         jComboBoxAseg.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -340,6 +345,11 @@ public class Usa_Vehiculo extends javax.swing.JFrame {
         jScrollPane1.setViewportView(jTextAreaDescrip);
 
         jButtonInsertarRev.setText("Insertar revisión");
+        jButtonInsertarRev.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButtonInsertarRevActionPerformed(evt);
+            }
+        });
 
         javax.swing.GroupLayout jPanel4Layout = new javax.swing.GroupLayout(jPanel4);
         jPanel4.setLayout(jPanel4Layout);
@@ -443,7 +453,8 @@ public class Usa_Vehiculo extends javax.swing.JFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void jRadioButtonAfActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jRadioButtonAfActionPerformed
-        // TODO add your handling code here:
+        jTextFechaReg.setEnabled(true);
+        jComboBoxAseg.setEnabled(false);
     }//GEN-LAST:event_jRadioButtonAfActionPerformed
 
     private void jComboBoxAsegActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jComboBoxAsegActionPerformed
@@ -451,9 +462,20 @@ public class Usa_Vehiculo extends javax.swing.JFrame {
     }//GEN-LAST:event_jComboBoxAsegActionPerformed
 
     private void jRadioButtonParActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jRadioButtonParActionPerformed
-        // TODO add your handling code here:
+        jComboBoxAseg.setEnabled(true);
+        jTextFechaReg.setEnabled(false);
     }//GEN-LAST:event_jRadioButtonParActionPerformed
 
+//    public void RadioButton () {
+//        if(jRadioButtonAf.isSelected()){
+//            jTextFechaReg.setEnabled(true);
+//            jComboBoxAseg.setEnabled(false);
+//        }else if (jRadioButtonPar.isSelected()){
+//            jComboBoxAseg.setEnabled(true);
+//            jTextFechaReg.setEnabled(false);
+//        }
+//    }
+    
     private void EliminarVehiculoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_EliminarVehiculoActionPerformed
         String placa = jTextPlacaInic.getText();
 
@@ -461,7 +483,7 @@ public class Usa_Vehiculo extends javax.swing.JFrame {
             JOptionPane.showMessageDialog(null, "Vehiculo eliminado Sactisfactoriamente");
         else
             JOptionPane.showMessageDialog(null, "Vehiculo no existe");
-        
+            
     }//GEN-LAST:event_EliminarVehiculoActionPerformed
 
     private void ListarVehiculoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_ListarVehiculoActionPerformed
@@ -475,12 +497,20 @@ public class Usa_Vehiculo extends javax.swing.JFrame {
     }//GEN-LAST:event_ListarVehiculoActionPerformed
 
     private void ListarTodosActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_ListarTodosActionPerformed
-        String res = "Lista de todos los Vehiculos";
+        String res = "Lista de los vehiculos atendidos: ";
         
         int i = 0;
         for (Vehiculo vehiculo : losVehiculos.values())
-            res += (i+1) + ". " + vehiculo.toString();
-        
+            
+            if(vehiculo instanceof Vehiculo_afiliado)
+            {
+                res += vehiculo.getPlaca() + " AFILIADO" + " Cedula: " + vehiculo.getSuPropietario().getCedula() + 
+                        " Fecha de afiliación: " + ((Vehiculo_afiliado) vehiculo).getFecha_Afiliacion();
+            }else if(vehiculo instanceof Vehiculo_particular) {
+                res += vehiculo.getPlaca() + " NO AFILIADO" + " Cedula: " + vehiculo.getSuPropietario().getCedula() + 
+                        " Nombre de aseguradora: " + ((Vehiculo_particular) vehiculo).getId_aseguradora();
+            }
+            
         jTextArea2.setText(res);
     }//GEN-LAST:event_ListarTodosActionPerformed
 
@@ -508,17 +538,32 @@ public class Usa_Vehiculo extends javax.swing.JFrame {
         Propietario objP = new Propietario(laCedula, elCelular, elNombre);
         
         if(jRadioButtonAf.isSelected()){
-            jTextFechaReg.setEnabled(true);
             LocalDate laFechaA = LocalDate.parse(jTextFechaReg.getText());
             Vehiculo_afiliado objVA = new Vehiculo_afiliado(laPlaca, elModelo, objP, laFechaA);
             losVehiculos.put(laPlaca, objVA);
         }else if(jRadioButtonPar.isSelected()){
-            jComboBoxAseg.setEnabled(true);
             String laAseguradora = jComboBoxAseg.getSelectedItem().toString();
             Vehiculo_particular objVP= new Vehiculo_particular(laPlaca, elModelo, objP, laAseguradora);
             losVehiculos.put(laPlaca, objVP);
         }
     }//GEN-LAST:event_GuardarVehiculoActionPerformed
+
+    private void jButtonInsertarRevActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonInsertarRevActionPerformed
+        
+       
+        String placa = jTextPlacaRev.getText();
+        Vehiculo obj = losVehiculos.get(placa);
+        if(obj != null){
+          LocalDate lafecha = LocalDate.parse(jTextFechaRev.getText());
+          String ladescripcion = jTextAreaDescrip.getText();
+          String elconcepto = jComboBoxConceptoRev.getSelectedItem().toString();
+          double elvalorBase = Double.parseDouble(jTextValorBaseRev.getText());
+          
+          Revision rev = new Revision(lafecha, ladescripcion, elconcepto, elvalorBase);
+          obj.getSusRevisiones().enqueue(rev);
+          JOptionPane.showMessageDialog(null, "Revisión registrada con éxito");
+        }
+    }//GEN-LAST:event_jButtonInsertarRevActionPerformed
 
     /**
      * @param args the command line arguments
@@ -555,27 +600,10 @@ public class Usa_Vehiculo extends javax.swing.JFrame {
         });
     }
     
-    public static String ListarVehiculosAtendidos(HashMap<String, Revision> info1, HashMap<String, Vehiculo> info2){
-        String res = "*Lista de los Vehiculos Atendidos\n";
-        
-        for (String revision : info1.keySet()) {
-            /**
-             * Key list
-             * fecha/(,)/Placa
-             * 2020-10-02 , CPI-624,Juan
-             * 2020-10-02 , APX-965,Andres
-             * 2020-10-02 , UYT-852,Puche
-             */
-            String placa = revision.split(",")[1];
-            
-            //Hay que formatear la infomación de las filas
-            res += info2.get(placa).toString() + "\n";
-        }
-        
-        return res;
-    }
+  
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.ButtonGroup buttonGroup;
     private javax.swing.JButton jButtonEliminar;
     private javax.swing.JButton jButtonGuardar;
     private javax.swing.JButton jButtonInsertarRev;
