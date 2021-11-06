@@ -48,14 +48,17 @@ public class Vehiculo_afiliado extends Vehiculo{
 
     @Override
     public String toString() {
-        StringBuilder sb = new StringBuilder();
-        sb.append("Vehiculo Afiliado");
-        sb.append("\n\tsusRevisiones:").append(susRevisiones);
-        sb.append("\n\tplaca:").append(placa);
-        sb.append("\n\tmodelo:").append(modelo);
-        sb.append("\n\tsu Propietario:").append(suPropietario.toString());
-        sb.append("\n\tfecha afiliacion:").append(fecha_Afiliacion);
-        return sb.toString();
+        
+        
+        String res = 
+                placa + "" + modelo + "" + fecha_Afiliacion + "" + 
+                "Propietario: " + suPropietario.getCedula() + "" + suPropietario.getNombre() + "" + suPropietario.getCelular(); 
+//                  + "Revisiones: \n" +  susRevisiones.toString();
+                for (int i = 0; i < susRevisiones.size(); i++) {
+                    
+                    res+= "\n" + susRevisiones.get(i).toString() + calcularValorAPagar();
+        }
+        return res;
     }
     
     

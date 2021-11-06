@@ -31,14 +31,15 @@ public class Vehiculo_particular extends Vehiculo{
 
     @Override
     public String toString() {
-        StringBuilder sb = new StringBuilder();
-        sb.append("Vehiculo Particular");
-        sb.append("\n\tsusRevisiones:").append(susRevisiones);
-        sb.append("\n\tplaca:").append(placa);
-        sb.append("\n\tmodelo:").append(modelo);
-        sb.append("\n\tsu Propietario:").append(suPropietario.toString());
-        sb.append("\n\tid aseguradora:").append(id_aseguradora);
-        return sb.toString();
+        String res = 
+                placa + "" + modelo + "" + id_aseguradora + "" + 
+                "Propietario: " + suPropietario.getCedula() + "" + suPropietario.getNombre() + "" + suPropietario.getCelular(); 
+//                  + "Revisiones: \n" +  susRevisiones.toString();
+                for (int i = 0; i < susRevisiones.size(); i++) {
+                    
+                    res+= "\n" + susRevisiones.get(i).toString() + calcularValorAPagar();
+        }
+        return res;
     }
     
     

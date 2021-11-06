@@ -24,7 +24,7 @@ public class Usa_Vehiculo extends javax.swing.JFrame {
     /**
      * Creates new form Usa_Vehiculo
      */
-    private HashMap<String, Vehiculo> losVehiculos;
+    private HashMap<String, Vehiculo> losVehiculos = new HashMap<>();
     
     
     public Usa_Vehiculo() {
@@ -414,6 +414,11 @@ public class Usa_Vehiculo extends javax.swing.JFrame {
         jTabbedPane1.addTab("Añadir revisión", jPanel4);
 
         jButtonSalir.setText("Salir");
+        jButtonSalir.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButtonSalirActionPerformed(evt);
+            }
+        });
 
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
         jPanel1.setLayout(jPanel1Layout);
@@ -488,29 +493,37 @@ public class Usa_Vehiculo extends javax.swing.JFrame {
 
     private void ListarVehiculoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_ListarVehiculoActionPerformed
         String placa = jTextPlacaInic.getText();
-        Vehiculo res;
+        Vehiculo res = losVehiculos.get(placa);
         
-        if ((res = losVehiculos.get(placa)) != null)
-            jTextArea2.setText("Listar Vehiculo:\n" +res.toString());
+        if (res != null)
+               jTextArea2.setText("Listar Vehiculo:\n" +res.toString());
         else
             JOptionPane.showMessageDialog(null, "Vehiculo no existe");
     }//GEN-LAST:event_ListarVehiculoActionPerformed
 
     private void ListarTodosActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_ListarTodosActionPerformed
+        
+        if(losVehiculos.isEmpty()){
+            JOptionPane.showMessageDialog(null, "Mijo, no hay vehiculos registrados");
+            return;
+        }
+        
         String res = "Lista de los vehiculos atendidos: ";
         
-        int i = 0;
-        for (Vehiculo vehiculo : losVehiculos.values())
+        for (Vehiculo vehiculo : losVehiculos.values()){
             
             if(vehiculo instanceof Vehiculo_afiliado)
             {
-                res += vehiculo.getPlaca() + " AFILIADO" + " Cedula: " + vehiculo.getSuPropietario().getCedula() + 
-                        " Fecha de afiliación: " + ((Vehiculo_afiliado) vehiculo).getFecha_Afiliacion();
+                res += "\n" + vehiculo.getPlaca() + " AFILIADO" + " Cedula: " + vehiculo.getSuPropietario().getCedula() + 
+                        " Fecha revisiones: ";        
             }else if(vehiculo instanceof Vehiculo_particular) {
-                res += vehiculo.getPlaca() + " NO AFILIADO" + " Cedula: " + vehiculo.getSuPropietario().getCedula() + 
-                        " Nombre de aseguradora: " + ((Vehiculo_particular) vehiculo).getId_aseguradora();
+                res += "\n" + vehiculo.getPlaca() + " NO AFILIADO" + " Cedula: " + vehiculo.getSuPropietario().getCedula() + 
+                        " Fecha revisiones: ";  
             }
-            
+            for (int i = 0; i < vehiculo.getSusRevisiones().size(); i++) {
+                    res+= "\n " + vehiculo.getSusRevisiones().get(i).getFecha();
+                } 
+        }
         jTextArea2.setText(res);
     }//GEN-LAST:event_ListarTodosActionPerformed
 
@@ -560,10 +573,14 @@ public class Usa_Vehiculo extends javax.swing.JFrame {
           double elvalorBase = Double.parseDouble(jTextValorBaseRev.getText());
           
           Revision rev = new Revision(lafecha, ladescripcion, elconcepto, elvalorBase);
-          obj.getSusRevisiones().enqueue(rev);
+          obj.getSusRevisiones().add(rev);
           JOptionPane.showMessageDialog(null, "Revisión registrada con éxito");
         }
     }//GEN-LAST:event_jButtonInsertarRevActionPerformed
+
+    private void jButtonSalirActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonSalirActionPerformed
+        System.exit(0);
+    }//GEN-LAST:event_jButtonSalirActionPerformed
 
     /**
      * @param args the command line arguments

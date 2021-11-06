@@ -6,6 +6,7 @@ package logica;
 
 import java.time.LocalDate;
 import java.util.HashMap;
+import java.util.LinkedList;
 
 /**
  *
@@ -13,23 +14,23 @@ import java.util.HashMap;
  */
 public class Vehiculo {
     
-    protected Queue<Revision> susRevisiones;
+    protected LinkedList<Revision> susRevisiones;
     protected String placa;
     protected int modelo;
     protected Propietario suPropietario;
 
     public Vehiculo(String placa, int modelo, Propietario suPropietario) {
-        this.susRevisiones = new Queue<>();
+        this.susRevisiones = new LinkedList<>();
         this.placa = placa;
         this.modelo = modelo;
         this.suPropietario = suPropietario;
     }
 
-    public Queue<Revision> getSusRevisiones() {
+    public LinkedList<Revision> getSusRevisiones() {
         return susRevisiones;
     }
 
-    public void setSusRevisiones(Queue<Revision> susRevisiones) {
+    public void setSusRevisiones(LinkedList<Revision> susRevisiones) {
         this.susRevisiones = susRevisiones;
     }
 
@@ -66,13 +67,15 @@ public class Vehiculo {
 
     @Override
     public String toString() {
-        StringBuilder sb = new StringBuilder();
-        sb.append("Vehiculo");
-        sb.append("\n\tsusRevisiones:").append(susRevisiones);
-        sb.append("\n\tplaca:").append(placa);
-        sb.append("\n\tmodelo:").append(modelo);
-        sb.append("\n\tsu Propietario:").append(suPropietario.toString());
-        return sb.toString();
+        String res = 
+                placa + "" + modelo + "" + 
+                "Propietario: " + suPropietario.getCedula() + "" + suPropietario.getNombre() + "" + suPropietario.getCelular(); 
+//                  + "Revisiones: \n" +  susRevisiones.toString();
+                for (int i = 0; i < susRevisiones.size(); i++) {
+                    
+                    res+= "\n" + susRevisiones.get(i).toString() + calcularValorAPagar();
+        }
+        return res;
     }
     
     

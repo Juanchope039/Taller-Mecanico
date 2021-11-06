@@ -63,7 +63,6 @@ public class Revision {
         sb.append("\tfecha:").append(fecha);
         sb.append("\tdescripcion:").append(descripcion);
         sb.append("\tconcepto:").append(concepto);
-        sb.append("\tvalorBase:").append(valorBase);
         return sb.toString();
     }    
 }
