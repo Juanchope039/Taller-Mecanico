@@ -39,20 +39,20 @@ public class Usa_Vehiculo extends javax.swing.JFrame {
         
     }
     
-    public void Prueba () {
-        
-        for (int i = 0; i < 5; i++) {
-            int j = (int) ((Math.random()*10) + 1);
-            String placa = j + "PI-624";
-            Propietario propi = new Propietario(100L+ j , 321654987L, "Juan");
-            Vehiculo vehi = new  Vehiculo_afiliado( placa, 2018 + j, propi, LocalDate.now().plusYears(-i));
-            Revision rev = new Revision(LocalDate.now().plusDays(i), "Descrip", "PASA", 50000, vehi.calcularDescuento());
-            
-            vehi.getSusRevisiones().add(rev);
-            losVehiculos.put(placa, vehi);
-        }
-        
-    }
+////    public void Prueba () {
+//        
+//        for (int i = 0; i < 5; i++) {
+//            int j = (int) ((Math.random()*10) + 1);
+//            String placa = j + "PI-624";
+//            Propietario propi = new Propietario(100L+ j , 321654987L, "Juan");
+//            Vehiculo vehi = new  Vehiculo_afiliado( placa, 2018 + j, propi, LocalDate.now().plusYears(-i));
+//            Revision rev = new Revision(LocalDate.now().plusDays(i), "Descrip", "PASA", 50000, vehi.calcularDescuento());
+//            
+//            vehi.getSusRevisiones().add(rev);
+//            losVehiculos.put(placa, vehi);
+//        }
+//        
+//    }
 //    public void OrdenarAscendete () {
 //        List<String> Vehiculos = new ArrayList<>(losVehiculos.keySet());
 //        Collections.sort(Vehiculos);
@@ -123,6 +123,7 @@ public class Usa_Vehiculo extends javax.swing.JFrame {
         jLabel2.setFont(new java.awt.Font("Tahoma", 1, 24)); // NOI18N
         jLabel2.setText("TALLER MECANICO");
 
+        jTextArea2.setEditable(false);
         jTextArea2.setColumns(20);
         jTextArea2.setRows(5);
         jScrollPane2.setViewportView(jTextArea2);
@@ -433,7 +434,7 @@ public class Usa_Vehiculo extends javax.swing.JFrame {
 
         jTabbedPane1.addTab("Añadir revisión", jPanel4);
 
-        jButtonSalir.setText("Salir");
+        jButtonSalir.setText("Guardad y salir");
         jButtonSalir.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 SalirActionPerformed(evt);
@@ -448,7 +449,7 @@ public class Usa_Vehiculo extends javax.swing.JFrame {
             .addGroup(jPanel1Layout.createSequentialGroup()
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addComponent(jLabel2)
-                .addGap(141, 141, 141)
+                .addGap(92, 92, 92)
                 .addComponent(jButtonSalir))
         );
         jPanel1Layout.setVerticalGroup(
@@ -530,11 +531,11 @@ public class Usa_Vehiculo extends javax.swing.JFrame {
             
             if(vehiculo instanceof Vehiculo_afiliado)
             {
-                res += "\n" + vehiculo.getPlaca() + " AFILIADO" + " Cedula: " + vehiculo.getSuPropietario().getCedula() + 
-                        " Fecha revisiones: ";        
+                res += "\n" + vehiculo.getPlaca() + "\tAFILIADO" + "\tCedula: " + vehiculo.getSuPropietario().getCedula() + 
+                        " \tFecha revisiones: ";        
             }else if(vehiculo instanceof Vehiculo_particular) {
-                res += "\n" + vehiculo.getPlaca() + " NO AFILIADO" + " Cedula: " + vehiculo.getSuPropietario().getCedula() + 
-                        " Fecha revisiones: ";  
+                res += "\n" + vehiculo.getPlaca() + "\tNO AFILIADO" + "\tCedula: " + vehiculo.getSuPropietario().getCedula() + 
+                        " \tFecha revisiones: ";  
             }
             for (int i = 0; i < vehiculo.getSusRevisiones().size(); i++) {
                     res+= "\n " + vehiculo.getSusRevisiones().get(i).getFecha();
@@ -558,7 +559,13 @@ public class Usa_Vehiculo extends javax.swing.JFrame {
     private void GuardarVehiculoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_GuardarVehiculoActionPerformed
 //        //Datos vehiculo
         String laPlaca = jTextPlacaReg.getText();
-        long laCedula = Long.parseLong(jTextCedulaReg.getText());
+        long laCedula = 0; 
+        try {
+            laCedula= Long.parseLong(jTextCedulaReg.getText());
+        } catch (Exception e) {
+            JOptionPane.showMessageDialog(null, "La cedula debe ser un numero entero, sin puntos, simbolos o letras, ej: 10001");
+            return;
+        }
         
         Vehiculo vehi = losVehiculos.get(laPlaca);
         if (vehi!= null){
@@ -573,17 +580,36 @@ public class Usa_Vehiculo extends javax.swing.JFrame {
                 return;
             }
         }
-             
-        int elModelo= Integer.parseInt(jTextModeloReg.getText());
+        
+        int elModelo=0;
+        try {
+            elModelo= Integer.parseInt(jTextModeloReg.getText());
+        } catch (Exception e) {
+            JOptionPane.showMessageDialog(null, "El modelo debe ser un numero entero, ej: 2010");
+            return;
+        }
         //Datos propietario
         
-        long elCelular= Long.parseLong(jTextCelularReg.getText());
+        long elCelular= 0;
+        try {
+            elCelular= Long.parseLong(jTextCelularReg.getText());
+        } catch (Exception e) {
+            JOptionPane.showMessageDialog(null, "El celular debe ser un numero entero sin simbolos o letras, ej: 3146010863");
+            return;
+        }
         String elNombre = jTextNombreReg.getText();
         
         Propietario objP = new Propietario(laCedula, elCelular, elNombre);
         
         if(jRadioButtonAf.isSelected()){
-            LocalDate laFechaA = LocalDate.parse(jTextFechaReg.getText());
+            LocalDate laFechaA = LocalDate.now();
+            
+            try {
+                laFechaA = LocalDate.parse(jTextFechaReg.getText());
+            } catch (Exception e) {
+                JOptionPane.showMessageDialog(null, "La fecha se debe ingresar en el formato (aaaa-mm-dd) ej: 2021-10-01");
+                return;
+            }
             Vehiculo_afiliado objVA = new Vehiculo_afiliado(laPlaca, elModelo, objP, laFechaA);
             losVehiculos.put(laPlaca, objVA);
             JOptionPane.showMessageDialog(null, "Vehiculo guardo con éxito");
@@ -592,6 +618,8 @@ public class Usa_Vehiculo extends javax.swing.JFrame {
             Vehiculo_particular objVP= new Vehiculo_particular(laPlaca, elModelo, objP, laAseguradora);
             losVehiculos.put(laPlaca, objVP);
             JOptionPane.showMessageDialog(null, "Vehiculo guardo con éxito");
+        }else {
+            JOptionPane.showMessageDialog(null, "Antes de guardar un nuevo vehiculo debe seleccionar si es (Afiliado o Particular)");
         }
     }//GEN-LAST:event_GuardarVehiculoActionPerformed
 
@@ -601,10 +629,22 @@ public class Usa_Vehiculo extends javax.swing.JFrame {
         String placa = jTextPlacaRev.getText();
         Vehiculo obj = losVehiculos.get(placa);
         if(obj != null){
-          LocalDate lafecha = LocalDate.parse(jTextFechaRev.getText());
+          LocalDate lafecha = LocalDate.now();
+            try {
+                lafecha = LocalDate.parse(jTextFechaRev.getText());
+            } catch (Exception e) {
+                JOptionPane.showMessageDialog(null, "La fecha se debe ingresar en el formato (aaaa-mm-dd) ej: 2021-10-01");
+            }
           String ladescripcion = jTextAreaDescrip.getText();
           String elconcepto = jComboBoxConceptoRev.getSelectedItem().toString();
-          double elvalorBase = Double.parseDouble(jTextValorBaseRev.getText());
+          
+          double elvalorBase = 50000;
+          
+            try {
+                elvalorBase = Double.parseDouble(jTextValorBaseRev.getText());
+            } catch (Exception e) {
+                JOptionPane.showMessageDialog(null, "El valor base debe ser un numero y no contener letras o simbolos diferentes del punto decimal, ej: 50000 ó 50000.5");
+            }
           
           Revision rev = new Revision(lafecha, ladescripcion, elconcepto, elvalorBase, obj.calcularDescuento());
           obj.getSusRevisiones().add(rev);
