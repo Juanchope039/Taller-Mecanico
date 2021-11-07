@@ -562,6 +562,10 @@ public class Usa_Vehiculo extends javax.swing.JFrame {
         long laCedula = 0; 
         try {
             laCedula= Long.parseLong(jTextCedulaReg.getText());
+            if (laCedula < 0){
+                JOptionPane.showMessageDialog(null, "Valor invalido: no se pueden usar valores negativos");
+                return;
+            }
         } catch (Exception e) {
             JOptionPane.showMessageDialog(null, "La cedula debe ser un numero entero, sin puntos, simbolos o letras, ej: 10001");
             return;
@@ -590,9 +594,13 @@ public class Usa_Vehiculo extends javax.swing.JFrame {
         }
         //Datos propietario
         
-        long elCelular= 0;
+        long elCelular= Long.MIN_VALUE;
         try {
             elCelular= Long.parseLong(jTextCelularReg.getText());
+            if (elCelular < 0){
+                JOptionPane.showMessageDialog(null, "Valor invalido: no se pueden usar valores negativos");
+                return;
+            }
         } catch (Exception e) {
             JOptionPane.showMessageDialog(null, "El celular debe ser un numero entero sin simbolos o letras, ej: 3146010863");
             return;
@@ -602,10 +610,15 @@ public class Usa_Vehiculo extends javax.swing.JFrame {
         Propietario objP = new Propietario(laCedula, elCelular, elNombre);
         
         if(jRadioButtonAf.isSelected()){
-            LocalDate laFechaA = LocalDate.now();
+            LocalDate laFechaA = LocalDate.MAX;
             
             try {
                 laFechaA = LocalDate.parse(jTextFechaReg.getText());
+               
+                if (laFechaA.compareTo(LocalDate.now()) > 0){
+                    JOptionPane.showMessageDialog(null, "fecha invalida: no se pueden usar fechas futuras");
+                    return;
+                }
             } catch (Exception e) {
                 JOptionPane.showMessageDialog(null, "La fecha se debe ingresar en el formato (aaaa-mm-dd) ej: 2021-10-01");
                 return;
@@ -617,7 +630,7 @@ public class Usa_Vehiculo extends javax.swing.JFrame {
             String laAseguradora = jComboBoxAseg.getSelectedItem().toString();
             Vehiculo_particular objVP= new Vehiculo_particular(laPlaca, elModelo, objP, laAseguradora);
             losVehiculos.put(laPlaca, objVP);
-            JOptionPane.showMessageDialog(null, "Vehiculo guardo con éxito");
+            JOptionPane.showMessageDialog(null, "Vehiculo guardado con éxito");
         }else {
             JOptionPane.showMessageDialog(null, "Antes de guardar un nuevo vehiculo debe seleccionar si es (Afiliado o Particular)");
         }
@@ -634,6 +647,7 @@ public class Usa_Vehiculo extends javax.swing.JFrame {
                 lafecha = LocalDate.parse(jTextFechaRev.getText());
             } catch (Exception e) {
                 JOptionPane.showMessageDialog(null, "La fecha se debe ingresar en el formato (aaaa-mm-dd) ej: 2021-10-01");
+                return;
             }
           String ladescripcion = jTextAreaDescrip.getText();
           String elconcepto = jComboBoxConceptoRev.getSelectedItem().toString();
@@ -642,8 +656,14 @@ public class Usa_Vehiculo extends javax.swing.JFrame {
           
             try {
                 elvalorBase = Double.parseDouble(jTextValorBaseRev.getText());
+                
+                if (elvalorBase < 0){
+                    JOptionPane.showMessageDialog(null, "Valor invalido: no se pueden usar valores negativos");
+                    return;
+                }
             } catch (Exception e) {
                 JOptionPane.showMessageDialog(null, "El valor base debe ser un numero y no contener letras o simbolos diferentes del punto decimal, ej: 50000 ó 50000.5");
+                return;
             }
           
           Revision rev = new Revision(lafecha, ladescripcion, elconcepto, elvalorBase, obj.calcularDescuento());
