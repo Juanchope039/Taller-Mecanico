@@ -4,6 +4,10 @@
  */
 package Vista;
 
+import java.io.FileInputStream;
+import java.io.FileOutputStream;
+import java.io.ObjectInputStream;
+import java.io.ObjectOutputStream;
 import java.time.LocalDate;
 import java.util.HashMap;
 import java.util.TreeMap;
@@ -24,12 +28,15 @@ public class Usa_Vehiculo extends javax.swing.JFrame {
      * Creates new form Usa_Vehiculo
      */
     private TreeMap<String, Vehiculo> losVehiculos = new TreeMap<>();
+    private String nombreArchivo = "datos.obj";
     
     
     public Usa_Vehiculo() {
         initComponents();
         jTextFechaRev.setText(LocalDate.now().toString());
-        Prueba ();
+        RecuperarObjs(losVehiculos);
+        //Prueba ();
+        
     }
     
     public void Prueba () {
@@ -601,7 +608,7 @@ public class Usa_Vehiculo extends javax.swing.JFrame {
           
           Revision rev = new Revision(lafecha, ladescripcion, elconcepto, elvalorBase, obj.calcularDescuento());
           obj.getSusRevisiones().add(rev);
-          JOptionPane.showMessageDialog(null, "Las revisiones realizadas al vehículo de plaa "+ obj.getPlaca() +", serán de: " + rev.calcularValorAPagar());
+          JOptionPane.showMessageDialog(null, "Las revisiones realizadas al vehículo de placa: "+ obj.getPlaca() +", serán de: " + rev.calcularValorAPagar());
           JOptionPane.showMessageDialog(null, "Revisión registrada con éxito");
         }else {
             JOptionPane.showMessageDialog(null, "No existe vehiculo con esa placa");
@@ -609,6 +616,7 @@ public class Usa_Vehiculo extends javax.swing.JFrame {
     }//GEN-LAST:event_InsertarRevisionActionPerformed
 
     private void SalirActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_SalirActionPerformed
+        GuardarObjs(losVehiculos);
         System.exit(0);
     }//GEN-LAST:event_SalirActionPerformed
 
@@ -700,4 +708,61 @@ public class Usa_Vehiculo extends javax.swing.JFrame {
     private javax.swing.JTextField jTextPlacaRev;
     private javax.swing.JTextField jTextValorBaseRev;
     // End of variables declaration//GEN-END:variables
+    
+    public void GuardarObjs(TreeMap<String, Vehiculo> bd) 
+    {
+        // Actualizar el nombre del archivo            
+        ObjectOutputStream  salida=null;
+        try { 
+            // escritura de datos
+            salida  =  new  ObjectOutputStream( 
+                    new  FileOutputStream( nombreArchivo ) ) ;
+            
+            // adicionar instruccion para escribir los datos
+            salida.writeObject(bd);
+
+        } catch( Exception  e ) { 
+            System.out.println("Error almacenando los datos "+e.getMessage()) ;
+        } finally
+        {
+            try{
+                salida.close();
+            } catch(Exception e){
+               System.out.println("Error cerrando ") ;             
+            }
+        }                      
+    }
+    
+    public void RecuperarObjs(TreeMap<String, Vehiculo> bd) 
+    {        
+        // Actualizar el nombre del archivo
+        TreeMap<String, Vehiculo> laBD= new TreeMap<>();
+        ObjectInputStream  entrada=null;
+        try{
+            // lectura de datos
+            entrada  =   new  ObjectInputStream( 
+                    new  FileInputStream( nombreArchivo ) ) ;
+
+            // leer flujo y almacenarlo en laBD. Usar casting        
+            laBD = (TreeMap<String, Vehiculo>) entrada.readObject();
+
+            // opcional el borrar los datos existentes en bd
+            bd.clear();
+
+            // realizar ciclo for_each para pasar los datos de laBD a bd
+            for(Vehiculo dato : laBD.values()) {
+                bd.put(dato.getPlaca(), dato);
+            }
+               
+        } catch( Exception  e ) { 
+            JOptionPane.showMessageDialog(null,"Error recuperando los datos "+e.getMessage()+" -- "+e.toString()) ;
+        } finally
+        {
+            try{
+                entrada.close();
+            } catch(Exception e){
+               JOptionPane.showMessageDialog(null,"Error cerrando ") ;             
+            }
+        }                              
+    }    
 }

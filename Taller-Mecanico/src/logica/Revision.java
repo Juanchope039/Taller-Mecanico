@@ -4,13 +4,14 @@
  */
 package logica;
 
+import java.io.Serializable;
 import java.time.LocalDate;
 
 /**
  *
  * @author Desarollo
  */
-public class Revision {
+public class Revision implements Serializable{
     
     private LocalDate fecha;
     private String descripcion, concepto;

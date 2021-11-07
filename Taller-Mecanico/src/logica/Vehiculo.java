@@ -4,13 +4,14 @@
  */
 package logica;
 
+import java.io.Serializable;
 import java.util.LinkedList;
 
 /**
  *
  * @author Desarollo
  */
-public class Vehiculo implements Comparable<Vehiculo> {
+public class Vehiculo implements Comparable<Vehiculo> , Serializable{
     
     protected LinkedList<Revision> susRevisiones;
     protected String placa;

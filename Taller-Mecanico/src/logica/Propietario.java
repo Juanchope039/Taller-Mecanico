@@ -4,11 +4,13 @@
  */
 package logica;
 
+import java.io.Serializable;
+
 /**
  *
  * @author Desarollo
  */
-public class Propietario {
+public class Propietario implements Serializable{
     
     private Long 
             cedula, 
