@@ -29,11 +29,23 @@ public class Usa_Vehiculo extends javax.swing.JFrame {
     public Usa_Vehiculo() {
         initComponents();
         jTextFechaRev.setText(LocalDate.now().toString());
+        Prueba ();
     }
     
-//    public void Prueba () {
-//        
-//    }
+    public void Prueba () {
+        
+        for (int i = 0; i < 5; i++) {
+            int j = (int) ((Math.random()*10) + 1);
+            String placa = j + "PI-624";
+            Propietario propi = new Propietario(100L+ j , 321654987L, "Juan");
+            Vehiculo vehi = new  Vehiculo_afiliado( placa, 2018 + j, propi, LocalDate.now().plusYears(-i));
+            Revision rev = new Revision(LocalDate.now().plusDays(i), "Descrip", "PASA", 50000);
+            
+            vehi.getSusRevisiones().add(rev);
+            losVehiculos.put(placa, vehi);
+        }
+        
+    }
 //    public void OrdenarAscendete () {
 //        List<String> Vehiculos = new ArrayList<>(losVehiculos.keySet());
 //        Collections.sort(Vehiculos);
@@ -589,7 +601,10 @@ public class Usa_Vehiculo extends javax.swing.JFrame {
           
           Revision rev = new Revision(lafecha, ladescripcion, elconcepto, elvalorBase);
           obj.getSusRevisiones().add(rev);
+          JOptionPane.showMessageDialog(null, "Las revisiones realizadas al vehículo de plaa "+ obj.getPlaca() +", serán de: " + obj.calcularValorAPagar());
           JOptionPane.showMessageDialog(null, "Revisión registrada con éxito");
+        }else {
+            JOptionPane.showMessageDialog(null, "No existe vehiculo con esa placa");
         }
     }//GEN-LAST:event_InsertarRevisionActionPerformed
 

@@ -29,12 +29,12 @@ public class Vehiculo_particular extends Vehiculo{
     @Override
     public String toString() {
         String res = 
-                placa + "" + modelo + "" + id_aseguradora + "" + 
-                "Propietario: " + suPropietario.getCedula() + "" + suPropietario.getNombre() + "" + suPropietario.getCelular(); 
+                 "Placa: " +placa + " \tModelo: " + modelo + " \tAseguradora: " + id_aseguradora + "\n \n" + 
+                "Propietario:\n CC: " + suPropietario.getCedula() + " \tNombre: " + suPropietario.getNombre() + " \tCel: " + suPropietario.getCelular()+ "\n"; 
 //                  + "Revisiones: \n" +  susRevisiones.toString();
                 for (int i = 0; i < susRevisiones.size(); i++) {
                     
-                    res+= "\n" + susRevisiones.get(i).toString() + calcularValorAPagar();
+                    res+= "\n" + susRevisiones.get(i).toString() + " Valor: $" + calcularValorAPagar();
         }
         return res;
     }

@@ -59,10 +59,10 @@ public class Revision {
     @Override
     public String toString() {
         StringBuilder sb = new StringBuilder();
-        sb.append("Revision");
+        sb.append("Revisión: \n");
         sb.append(" Fecha: ").append(fecha);
-        sb.append(" Descripcion: ").append(descripcion);
-        sb.append(" Concepto: ").append(concepto);
+        sb.append(" \tDescripcion: ").append(descripcion);
+        sb.append(" \tConcepto: ").append(concepto).append("\n");
         return sb.toString();
     }    
 }
