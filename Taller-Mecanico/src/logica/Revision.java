@@ -63,6 +63,7 @@ public class Revision implements Serializable{
         
         if (res <0)
             res = 0;
+        
         return res;
     }
 
