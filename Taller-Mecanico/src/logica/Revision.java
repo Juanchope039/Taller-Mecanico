@@ -59,7 +59,11 @@ public class Revision implements Serializable{
     }
     
     public  double calcularValorAPagar(){
-        return valorBase - descuento;
+        double res = valorBase - descuento;
+        
+        if (res <0)
+            res = 0;
+        return res;
     }
 
     @Override
