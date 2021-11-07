@@ -39,20 +39,20 @@ public class Usa_Vehiculo extends javax.swing.JFrame {
         
     }
     
-    public void Prueba () {
-        
-        for (int i = 0; i < 5; i++) {
-            int j = (int) ((Math.random()*10) + 1);
-            String placa = j + "PI-624";
-            Propietario propi = new Propietario(100L+ j , 321654987L, "Juan");
-            Vehiculo vehi = new  Vehiculo_afiliado( placa, 2018 + j, propi, LocalDate.now().plusYears(-i));
-            Revision rev = new Revision(LocalDate.now().plusDays(i), "Descrip", "PASA", 50000, vehi.calcularDescuento());
-            
-            vehi.getSusRevisiones().add(rev);
-            losVehiculos.put(placa, vehi);
-        }
-        
-    }
+////    public void Prueba () {
+//        
+//        for (int i = 0; i < 5; i++) {
+//            int j = (int) ((Math.random()*10) + 1);
+//            String placa = j + "PI-624";
+//            Propietario propi = new Propietario(100L+ j , 321654987L, "Juan");
+//            Vehiculo vehi = new  Vehiculo_afiliado( placa, 2018 + j, propi, LocalDate.now().plusYears(-i));
+//            Revision rev = new Revision(LocalDate.now().plusDays(i), "Descrip", "PASA", 50000, vehi.calcularDescuento());
+//            
+//            vehi.getSusRevisiones().add(rev);
+//            losVehiculos.put(placa, vehi);
+//        }
+//        
+//    }
 //    public void OrdenarAscendete () {
 //        List<String> Vehiculos = new ArrayList<>(losVehiculos.keySet());
 //        Collections.sort(Vehiculos);
@@ -433,7 +433,7 @@ public class Usa_Vehiculo extends javax.swing.JFrame {
 
         jTabbedPane1.addTab("Añadir revisión", jPanel4);
 
-        jButtonSalir.setText("Salir");
+        jButtonSalir.setText("Guardad y salir");
         jButtonSalir.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 SalirActionPerformed(evt);
@@ -448,7 +448,7 @@ public class Usa_Vehiculo extends javax.swing.JFrame {
             .addGroup(jPanel1Layout.createSequentialGroup()
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addComponent(jLabel2)
-                .addGap(141, 141, 141)
+                .addGap(92, 92, 92)
                 .addComponent(jButtonSalir))
         );
         jPanel1Layout.setVerticalGroup(
