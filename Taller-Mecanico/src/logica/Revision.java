@@ -15,12 +15,14 @@ public class Revision {
     private LocalDate fecha;
     private String descripcion, concepto;
     private double valorBase;
+    private double descuento;
 
-    public Revision(LocalDate fecha, String descripcion, String concepto, double valorBase) {
+    public Revision(LocalDate fecha, String descripcion, String concepto, double valorBase, double descuento) {
         this.fecha = fecha;
         this.descripcion = descripcion;
         this.concepto = concepto;
         this.valorBase = valorBase;
+        this.descuento = descuento;
     }
 
     public LocalDate getFecha() {
@@ -55,6 +57,9 @@ public class Revision {
         this.valorBase = valorBase;
     }
     
+    public  double calcularValorAPagar(){
+        return valorBase - descuento;
+    }
 
     @Override
     public String toString() {
@@ -63,6 +68,7 @@ public class Revision {
         sb.append(" Fecha: ").append(fecha);
         sb.append(" \tDescripcion: ").append(descripcion);
         sb.append(" \tConcepto: ").append(concepto).append("\n");
+        sb.append(" Valor a pagar: ").append(calcularValorAPagar());
         return sb.toString();
     }    
 }

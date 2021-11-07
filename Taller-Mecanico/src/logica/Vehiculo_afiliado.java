@@ -30,12 +30,12 @@ public class Vehiculo_afiliado extends Vehiculo{
     }
 
     @Override
-    public double calcularValorAPagar(double valorBase) {
+    public double calcularDescuento() {
         
         LocalDate hoy = LocalDate.now();
         long difAños = ChronoUnit.YEARS.between(fecha_Afiliacion, hoy);
         
-        return valorBase-(3000*difAños); //To change body of generated methods, choose Tools | Templates.
+        return super.calcularDescuento() + (3000*difAños);
     }
     
     
@@ -50,7 +50,7 @@ public class Vehiculo_afiliado extends Vehiculo{
 //                  + "Revisiones: \n" +  susRevisiones.toString();
                 for (int i = 0; i < susRevisiones.size(); i++) {
                     
-                    res+= "\n" + susRevisiones.get(i).toString() + " Valor: $" + calcularValorAPagar(susRevisiones.get(i).getValorBase());
+                    res+= "\n" + susRevisiones.get(i).toString();
         }
         return res;
     }

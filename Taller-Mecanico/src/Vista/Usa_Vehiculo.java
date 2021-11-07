@@ -39,7 +39,7 @@ public class Usa_Vehiculo extends javax.swing.JFrame {
             String placa = j + "PI-624";
             Propietario propi = new Propietario(100L+ j , 321654987L, "Juan");
             Vehiculo vehi = new  Vehiculo_afiliado( placa, 2018 + j, propi, LocalDate.now().plusYears(-i));
-            Revision rev = new Revision(LocalDate.now().plusDays(i), "Descrip", "PASA", 50000);
+            Revision rev = new Revision(LocalDate.now().plusDays(i), "Descrip", "PASA", 50000, vehi.calcularDescuento());
             
             vehi.getSusRevisiones().add(rev);
             losVehiculos.put(placa, vehi);
@@ -599,9 +599,9 @@ public class Usa_Vehiculo extends javax.swing.JFrame {
           String elconcepto = jComboBoxConceptoRev.getSelectedItem().toString();
           double elvalorBase = Double.parseDouble(jTextValorBaseRev.getText());
           
-          Revision rev = new Revision(lafecha, ladescripcion, elconcepto, elvalorBase);
+          Revision rev = new Revision(lafecha, ladescripcion, elconcepto, elvalorBase, obj.calcularDescuento());
           obj.getSusRevisiones().add(rev);
-          JOptionPane.showMessageDialog(null, "Las revisiones realizadas al vehículo de plaa "+ obj.getPlaca() +", serán de: " + obj.calcularValorAPagar());
+          JOptionPane.showMessageDialog(null, "Las revisiones realizadas al vehículo de plaa "+ obj.getPlaca() +", serán de: " + rev.calcularValorAPagar());
           JOptionPane.showMessageDialog(null, "Revisión registrada con éxito");
         }else {
             JOptionPane.showMessageDialog(null, "No existe vehiculo con esa placa");

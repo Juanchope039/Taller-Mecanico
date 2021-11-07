@@ -56,11 +56,8 @@ public class Vehiculo implements Comparable<Vehiculo> {
         this.suPropietario = suPropietario;
     }
     
-    public double calcularValorAPagar(double valorBase) {
-        
-        double res = valorBase;
-        
-        return res;
+    public double calcularDescuento() {        
+        return 0;
     }
 
     @Override
@@ -71,7 +68,7 @@ public class Vehiculo implements Comparable<Vehiculo> {
 //                  + "Revisiones: \n" +  susRevisiones.toString();
                 for (int i = 0; i < susRevisiones.size(); i++) {
                     
-                    res+= "\n" + susRevisiones.get(i).toString() + calcularValorAPagar(susRevisiones.get(i).getValorBase());
+                    res+= "\n" + susRevisiones.get(i).toString();
         }
         return res;
     }

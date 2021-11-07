@@ -34,7 +34,7 @@ public class Vehiculo_particular extends Vehiculo{
 //                  + "Revisiones: \n" +  susRevisiones.toString();
                 for (int i = 0; i < susRevisiones.size(); i++) {
                     
-                    res+= "\n" + susRevisiones.get(i).toString() + " Valor: $" + calcularValorAPagar();
+                    res+= "\n" + susRevisiones.get(i).toString();
         }
         return res;
     }
