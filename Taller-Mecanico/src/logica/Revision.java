@@ -60,9 +60,9 @@ public class Revision {
     public String toString() {
         StringBuilder sb = new StringBuilder();
         sb.append("Revision");
-        sb.append("\tfecha:").append(fecha);
-        sb.append("\tdescripcion:").append(descripcion);
-        sb.append("\tconcepto:").append(concepto);
+        sb.append(" Fecha: ").append(fecha);
+        sb.append(" Descripcion: ").append(descripcion);
+        sb.append(" Concepto: ").append(concepto);
         return sb.toString();
     }    
 }

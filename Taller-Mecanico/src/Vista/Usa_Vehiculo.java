@@ -186,7 +186,7 @@ public class Usa_Vehiculo extends javax.swing.JFrame {
         jRadioButtonAf.setText("Afiliado");
         jRadioButtonAf.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jRadioButtonAfActionPerformed(evt);
+                seleccionarAfiliadoActionPerformed(evt);
             }
         });
 
@@ -194,7 +194,7 @@ public class Usa_Vehiculo extends javax.swing.JFrame {
         jRadioButtonPar.setText("Particular");
         jRadioButtonPar.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jRadioButtonParActionPerformed(evt);
+                seleccionarParticularActionPerformed(evt);
             }
         });
 
@@ -204,11 +204,6 @@ public class Usa_Vehiculo extends javax.swing.JFrame {
 
         jComboBoxAseg.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "MAPFRE", "SURA", "ALLIANZ", "SOLIDARIA", "LIBERTY" }));
         jComboBoxAseg.setEnabled(false);
-        jComboBoxAseg.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jComboBoxAsegActionPerformed(evt);
-            }
-        });
 
         jLabel4.setFont(new java.awt.Font("Tahoma", 1, 11)); // NOI18N
         jLabel4.setText("Datos propietario:");
@@ -353,7 +348,7 @@ public class Usa_Vehiculo extends javax.swing.JFrame {
         jButtonInsertarRev.setText("Insertar revisión");
         jButtonInsertarRev.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jButtonInsertarRevActionPerformed(evt);
+                InsertarRevisionActionPerformed(evt);
             }
         });
 
@@ -422,7 +417,7 @@ public class Usa_Vehiculo extends javax.swing.JFrame {
         jButtonSalir.setText("Salir");
         jButtonSalir.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jButtonSalirActionPerformed(evt);
+                SalirActionPerformed(evt);
             }
         });
 
@@ -463,19 +458,15 @@ public class Usa_Vehiculo extends javax.swing.JFrame {
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
-    private void jRadioButtonAfActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jRadioButtonAfActionPerformed
+    private void seleccionarAfiliadoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_seleccionarAfiliadoActionPerformed
         jTextFechaReg.setEnabled(true);
         jComboBoxAseg.setEnabled(false);
-    }//GEN-LAST:event_jRadioButtonAfActionPerformed
+    }//GEN-LAST:event_seleccionarAfiliadoActionPerformed
 
-    private void jComboBoxAsegActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jComboBoxAsegActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_jComboBoxAsegActionPerformed
-
-    private void jRadioButtonParActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jRadioButtonParActionPerformed
+    private void seleccionarParticularActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_seleccionarParticularActionPerformed
         jComboBoxAseg.setEnabled(true);
         jTextFechaReg.setEnabled(false);
-    }//GEN-LAST:event_jRadioButtonParActionPerformed
+    }//GEN-LAST:event_seleccionarParticularActionPerformed
 
 //    public void RadioButton () {
 //        if(jRadioButtonAf.isSelected()){
@@ -585,7 +576,7 @@ public class Usa_Vehiculo extends javax.swing.JFrame {
         }
     }//GEN-LAST:event_GuardarVehiculoActionPerformed
 
-    private void jButtonInsertarRevActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonInsertarRevActionPerformed
+    private void InsertarRevisionActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_InsertarRevisionActionPerformed
         
        
         String placa = jTextPlacaRev.getText();
@@ -600,11 +591,11 @@ public class Usa_Vehiculo extends javax.swing.JFrame {
           obj.getSusRevisiones().add(rev);
           JOptionPane.showMessageDialog(null, "Revisión registrada con éxito");
         }
-    }//GEN-LAST:event_jButtonInsertarRevActionPerformed
+    }//GEN-LAST:event_InsertarRevisionActionPerformed
 
-    private void jButtonSalirActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonSalirActionPerformed
+    private void SalirActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_SalirActionPerformed
         System.exit(0);
-    }//GEN-LAST:event_jButtonSalirActionPerformed
+    }//GEN-LAST:event_SalirActionPerformed
 
     /**
      * @param args the command line arguments

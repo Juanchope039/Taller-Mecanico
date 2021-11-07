@@ -28,11 +28,6 @@ public class Vehiculo_afiliado extends Vehiculo{
     public void setFecha_Afiliacion(LocalDate fecha_Afiliacion) {
         this.fecha_Afiliacion = fecha_Afiliacion;
     }
-    
-    public double calcularDescuento(){
-        Long numeroAnnos = ChronoUnit.YEARS.between(LocalDate.now(), fecha_Afiliacion);
-        return 3000 * numeroAnnos;
-    }
 
     @Override
     public double calcularValorAPagar() {
